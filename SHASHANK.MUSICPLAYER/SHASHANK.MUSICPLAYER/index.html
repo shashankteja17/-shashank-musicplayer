@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080b14">
+<title>SHASHANK.MUSICPLAYER — Better Sound. Every Song.</title>
+<style>
+:root{--bg:#080b14;--panel:#101625;--panel2:#0c1220;--line:#222d45;--text:#f5f7ff;--muted:#9eafd0;--purple:#7957ff;--blue:#287dff;--cyan:#39d9ff}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 78% 0%,#17234a 0,transparent 38%),var(--bg);color:var(--text);font:15px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif}
+button,input{font:inherit}button{cursor:pointer}.top{height:82px;border-bottom:1px solid #1b2437;display:flex;align-items:center;justify-content:space-between;padding:0 30px;gap:18px;position:sticky;top:0;background:#080b14eF;backdrop-filter:blur(14px);z-index:5}
+.brand{display:flex;align-items:center;gap:14px;font-weight:850;font-size:clamp(17px,2vw,25px);letter-spacing:-.7px}.brand .icon{width:48px;height:48px;border-radius:15px;background:linear-gradient(135deg,var(--purple),var(--blue));display:grid;place-items:center;font-size:25px}.gradient{background:linear-gradient(90deg,#7c86ff,#c17aff);color:transparent;background-clip:text}.tag{color:#94a9d2;font-size:12px;letter-spacing:2px;font-weight:500}.topright{display:flex;align-items:center;gap:10px}.btn{border:1px solid var(--line);color:var(--text);background:#151d30;border-radius:12px;padding:11px 15px;font-weight:650}.btn.primary{background:linear-gradient(110deg,#405dff,#7545f5);border-color:transparent}.btn:disabled{opacity:.45;cursor:not-allowed}
+.layout{display:grid;grid-template-columns:220px minmax(0,1fr);min-height:calc(100vh - 82px)}aside{border-right:1px solid #1b2437;padding:24px 14px;display:flex;flex-direction:column;gap:7px}.nav{display:flex;gap:12px;align-items:center;text-align:left;background:transparent;border:1px solid transparent;color:#b8c7e6;padding:12px 14px;border-radius:11px}.nav.active,.nav:hover{background:#171b39;border-color:#4032a4;color:white}.asidehead{font-size:11px;letter-spacing:1.7px;color:#7086b4;margin:28px 12px 7px}.smallnote{margin-top:auto;color:#8fa2c8;font-size:12px;padding:15px 10px;border-top:1px solid var(--line)}
+main{max-width:1500px;width:100%;padding:30px;margin:auto}.hero{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(210px,.75fr);align-items:center;gap:20px;padding:10px 5px 27px}.eyebrow{color:#85c9ff;letter-spacing:2px;font-size:11px;font-weight:800}.hero h1{font-size:clamp(31px,4vw,56px);line-height:1.05;letter-spacing:-2px;margin:12px 0}.hero p{color:#b5c5e5;max-width:670px}.orb{min-height:190px;display:grid;place-items:center;position:relative;overflow:hidden}.orb:before{content:"";position:absolute;width:210px;height:210px;border-radius:50%;background:radial-gradient(circle,#7657ff8a,transparent 65%);filter:blur(10px)}.headphones{font-size:100px;filter:drop-shadow(0 0 22px #554eff);z-index:1}.wave{position:absolute;bottom:22px;display:flex;align-items:center;gap:5px;height:52px}.wave i{width:4px;border-radius:6px;background:linear-gradient(#49d8ff,#8d56ff);height:var(--h);opacity:.8}
+.grid{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(290px,.8fr);gap:16px}.col{display:flex;flex-direction:column;gap:14px}.card{background:linear-gradient(145deg,#101625f5,#0b111e);border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:0 12px 35px #0002}.cardhead{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}.card h2{font-size:16px;margin:0}.sub{font-size:12px;color:var(--muted);margin-top:3px}.status{font-size:11px;color:#6fe4b3;background:#103027;padding:7px 10px;border-radius:9px}
+.track{display:flex;align-items:center;gap:17px}.art{width:102px;height:102px;flex-shrink:0;border-radius:14px;background:linear-gradient(145deg,#1b2e59,#7a44d8 60%,#ff6b9b);display:grid;place-items:center;font-size:37px;box-shadow:0 8px 24px #0004}.trackinfo{min-width:0;flex:1}.trackinfo h3{margin:0 0 4px;font-size:20px}.trackinfo p{margin:0;color:#aabce0}.trackinfo .filename{font-size:12px;overflow-wrap:anywhere}.progress{width:100%;accent-color:#8965ff;margin-top:13px}.times{display:flex;justify-content:space-between;color:#92a5c9;font-size:11px}.controls{display:flex;justify-content:center;align-items:center;gap:15px;margin-top:12px}.control{border:0;background:transparent;color:#dce5ff;font-size:19px;padding:8px}.play{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#865bff,#4e68ff);color:white;border:0;font-size:20px;box-shadow:0 5px 20px #6548ff55}
+.upload{border:1px dashed #465c88;background:#111a2d;border-radius:12px;padding:12px;text-align:center;color:#a8bce1;font-size:12px;margin-top:16px}.upload input{max-width:100%;margin-top:8px;font-size:12px}
+.eqgrid{display:grid;grid-template-columns:repeat(8,minmax(30px,1fr));gap:10px;margin-top:22px}.band{text-align:center;display:flex;flex-direction:column;align-items:center;gap:9px}.band .val{font-size:11px;color:#a9bbdf}.band input{writing-mode:vertical-lr;direction:rtl;appearance:slider-vertical;height:115px;width:22px;accent-color:#8b65ff}.band label{font-size:11px;color:#a9bbdf;min-height:30px}.toggle{display:flex;align-items:center;gap:8px;font-size:12px;color:#aabce0}.toggle input{accent-color:#8a62ff}
+.modes{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.mode{padding:12px 7px;border:1px solid #2a3752;background:#0d1422;color:#cbd8f4;border-radius:10px;font-size:12px}.mode.active{background:#4d38a8;border-color:#9678ff;color:white;box-shadow:0 0 18px #7856ff22}
+.sliderrow{margin-top:18px}.sliderrow .labels{display:flex;justify-content:space-between;font-size:12px;color:#b5c6e6;margin-bottom:8px}.sliderrow input{width:100%;accent-color:#8b65ff}.presets{display:flex;flex-direction:column;gap:8px}.preset{display:flex;align-items:center;gap:12px;text-align:left;background:#0d1422;border:1px solid #27334d;border-radius:11px;padding:12px;color:#eaf0ff}.preset .picon{font-size:22px;width:28px;text-align:center}.preset small{display:block;color:#9bafd4;margin-top:2px}.preset.active{border-color:#8b65ff;background:#171934}.hint{font-size:12px;color:#91a6ce;line-height:1.65}.notice{border:1px solid #3b335e;background:#17142b;border-radius:12px;padding:12px;color:#c2b7ff;font-size:12px;margin-top:12px}
+footer{text-align:center;color:#7184aa;font-size:12px;padding:28px 10px 8px}
+@media(max-width:950px){.layout{grid-template-columns:1fr}aside{display:none}main{padding:18px}.grid{grid-template-columns:1fr}.hero{grid-template-columns:1fr .4fr}.orb{min-height:140px}.headphones{font-size:70px}}
+@media(max-width:600px){.top{padding:12px 14px;height:auto}.brand .icon{width:38px;height:38px}.tag{display:none}.topright .btn{padding:9px;font-size:12px}.topright .spotify{display:none}.hero{grid-template-columns:1fr}.orb{display:none}.card{padding:15px}.track{align-items:flex-start}.art{width:74px;height:74px;font-size:28px}.trackinfo h3{font-size:16px}.eqgrid{grid-template-columns:repeat(4,1fr);row-gap:22px}.band input{height:95px}.modes{grid-template-columns:1fr}.mode{padding:10px}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div>
+    <div class="brand"><span class="icon">♫</span><span>SHASHANK.<span class="gradient">MUSICPLAYER</span><div class="tag">BETTER SOUND. EVERY SONG.</div></span></div>
+  </div>
+  <div class="topright"><button class="btn" id="shareBtn">↗ Share</button><a class="btn primary spotify" href="https://open.spotify.com/" target="_blank" rel="noreferrer" style="text-decoration:none">◉ Open Spotify ↗</a></div>
+</header>
+<div class="layout">
+<aside>
+  <button class="nav active" data-scroll="player">⌂ &nbsp; Home</button>
+  <button class="nav" data-scroll="player">♫ &nbsp; Now Playing</button>
+  <button class="nav" data-scroll="equalizer">☷ &nbsp; Equalizer</button>
+  <button class="nav" data-scroll="vocal">♩ &nbsp; Vocal Focus</button>
+  <button class="nav" data-scroll="presets">▱ &nbsp; Sound Profiles</button>
+  <div class="asidehead">YOUR SOUND</div>
+  <button class="nav active presetnav" data-preset="Balanced">▥ &nbsp; Balanced</button>
+  <button class="nav presetnav" data-preset="Vocals Only">♬ &nbsp; Vocal Focus</button>
+  <button class="nav presetnav" data-preset="Bass Boost">◉ &nbsp; Bass Boost</button>
+  <button class="nav presetnav" data-preset="Clear Audio">☼ &nbsp; Clear Audio</button>
+  <div class="smallnote">A browser-based audio lab.<br>Upload an audio file you can use.</div>
+</aside>
+<main>
+<section class="hero">
+ <div><div class="eyebrow">YOUR MUSIC, YOUR MIX</div><h1>Hear every layer.<br><span class="gradient">Feel every beat.</span></h1><p>Shape your listening experience with an interactive equalizer, bass boost and experimental vocal focus — right in your browser.</p></div>
+ <div class="orb"><div class="headphones">🎧</div><div class="wave" id="heroWave"></div></div>
+</section>
+<div class="grid">
+<div class="col">
+<section class="card" id="player">
+ <div class="cardhead"><div><h2>♫ &nbsp; Now Playing</h2><div class="sub">Local audio playback · processed in your browser</div></div><span class="status" id="audioStatus">READY TO PLAY</span></div>
+ <div class="track"><div class="art" id="art">♫</div><div class="trackinfo"><h3 id="trackName">Your next favourite song</h3><p id="trackArtist">Choose an audio file to begin</p><p class="filename" id="fileLabel"></p></div></div>
+ <audio id="audio" crossorigin="anonymous"></audio>
+ <input class="progress" id="seek" type="range" min="0" max="1000" value="0" aria-label="Seek">
+ <div class="times"><span id="currentTime">0:00</span><span id="duration">0:00</span></div>
+ <div class="controls"><button class="control" id="resetBtn" title="Reset audio effects">↺</button><button class="control" id="backBtn" title="Back to start">|◀</button><button class="play" id="playBtn" aria-label="Play">▶</button><button class="control" id="forwardBtn" title="Skip forward 10 seconds">▶|</button><button class="control" id="muteBtn" title="Mute">◖</button></div>
+ <div class="upload"><strong>＋ Load your audio</strong><br>MP3, WAV, OGG, or another browser-supported audio file<br><input type="file" id="fileInput" accept="audio/*"></div>
+ <div class="notice">Privacy note: your selected file is processed locally by this browser page; it is not uploaded to a server.</div>
+</section>
+<section class="card" id="equalizer">
+ <div class="cardhead"><div><h2>☷ &nbsp; Audio Equalizer</h2><div class="sub">Adjust frequency bands in real time</div></div><label class="toggle"><input type="checkbox" id="fxToggle" checked> Effects ON</label></div>
+ <div class="eqgrid" id="eqgrid"></div>
+ <div class="sliderrow"><div class="labels"><span>Master volume</span><span id="volumeVal">80%</span></div><input id="volume" type="range" min="0" max="100" value="80"></div>
+</section>
+</div>
+<div class="col">
+<section class="card" id="vocal">
+ <div class="cardhead"><div><h2>♩ &nbsp; Vocal Focus Lab</h2><div class="sub">Experimental stereo center-channel effect</div></div></div>
+ <div class="modes"><button class="mode active" data-vocal="off">Off</button><button class="mode" data-vocal="focus">Vocal Focus</button><button class="mode" data-vocal="center">Center only</button></div>
+ <div class="sliderrow"><div class="labels"><span>Vocal / center level</span><span id="vocalVal">100%</span></div><input id="vocalLevel" type="range" min="0" max="100" value="100"></div>
+ <div class="notice">This is not AI source separation. Center-channel processing can reduce some centered instruments, but results depend on the stereo mix and may sound unusual. For true “vocals only,” use a licensed source-separation model on audio you have permission to process.</div>
+</section>
+<section class="card" id="presets">
+ <div class="cardhead"><div><h2>▱ &nbsp; Sound Profiles</h2><div class="sub">Choose a starting point</div></div></div>
+ <div class="presets">
+  <button class="preset active" data-preset="Balanced"><span class="picon">▥</span><span><strong>Balanced</strong><small>Natural, even sound</small></span></button>
+  <button class="preset" data-preset="Vocals Only"><span class="picon">♬</span><span><strong>Vocal Focus</strong><small>Emphasize midrange presence</small></span></button>
+  <button class="preset" data-preset="Bass Boost"><span class="picon">◉</span><span><strong>Bass Boost</strong><small>More low-end energy</small></span></button>
+  <button class="preset" data-preset="Clear Audio"><span class="picon">☼</span><span><strong>Clear Audio</strong><small>Gentle presence and treble</small></span></button>
+ </div>
+</section>
+<section class="card"><h2>About this player</h2><p class="hint">SHASHANK.MUSICPLAYER is an independent browser audio project inspired by desktop audio enhancers. It does not embed FxSound's desktop engine, and it does not modify Spotify streams. The “Open Spotify” button takes you to Spotify separately.</p><p class="hint">For a public release, follow the FxSound project's AGPL-3.0 license if you reuse its source code. This starter webpage is a separate browser-based implementation.</p></section>
+</div>
+</div>
+<footer>Made with ♡ by Shashank Teja R · SHASHANK.MUSICPLAYER</footer>
+</main>
+</div>
+<script>
+const audio=document.getElementById('audio'), fileInput=document.getElementById('fileInput');
+let ctx=null, source=null, filters=[], master=null, splitter=null, merger=null, vocalGain=null, dryGain=null, audioReady=false, currentUrl=null;
+const bands=[{f:60,label:'Bass',gain:0,type:'lowshelf'},{f:170,label:'Warmth',gain:0},{f:350,label:'Body',gain:0},{f:1000,label:'Mids',gain:0},{f:3000,label:'Presence',gain:0},{f:6000,label:'Clarity',gain:0},{f:10000,label:'Treble',gain:0},{f:14000,label:'Air',gain:0}];
+const eqgrid=document.getElementById('eqgrid');
+bands.forEach((b,i)=>{let wrap=document.createElement('div');wrap.className='band';wrap.innerHTML=`<span class="val" id="val${i}">0 dB</span><input id="band${i}" type="range" min="-12" max="12" value="0" step="1" aria-label="${b.label}"><label>${b.label}</label>`;eqgrid.appendChild(wrap);});
+function setupAudio(){
+ if(ctx)return;
+ ctx=new (window.AudioContext||window.webkitAudioContext)();
+ source=ctx.createMediaElementSource(audio);
+ filters=bands.map((b,i)=>{let f=ctx.createBiquadFilter();f.type=b.type||'peaking';f.frequency.value=b.f;f.Q.value=0.8;return f;});
+ master=ctx.createGain();master.gain.value=.8;
+ // Center extraction uses L-R cancellation in a stereo graph. This is a simple effect, not source separation.
+ splitter=ctx.createChannelSplitter(2);let mergerLR=ctx.createChannelMerger(2);
+ let left=ctx.createGain(),right=ctx.createGain();left.gain.value=.5;right.gain.value=.5;
+ let invertR=ctx.createGain();invertR.gain.value=-.5;
+ // Main path remains stereo EQ; center-only approximation is a parallel mono sum.
+ let centerSplitter=ctx.createChannelSplitter(2), centerMerger=ctx.createChannelMerger(2);
+ let sumL=ctx.createGain(),sumR=ctx.createGain();sumL.gain.value=.5;sumR.gain.value=.5;
+ source.connect(filters[0]);for(let i=0;i<filters.length-1;i++)filters[i].connect(filters[i+1]);
+ filters[filters.length-1].connect(master);
+ master.connect(ctx.destination);
+ vocalGain=ctx.createGain();vocalGain.gain.value=0;
+ // Keep a separate channel-sum path for the center emphasis effect.
+ let centerSum=ctx.createGain();centerSum.gain.value=.5;
+ source.connect(centerSplitter);centerSplitter.connect(sumL,0);centerSplitter.connect(sumR,1);
+ sumL.connect(centerSum);sumR.connect(centerSum);
+ let vocalMix=ctx.createGain();vocalMix.gain.value=0;
+ centerSum.connect(vocalMix);vocalMix.connect(ctx.destination);
+ window._vocalMix=vocalMix;window._centerSum=centerSum;
+ audioReady=true;
+}
+function fmt(t){if(!Number.isFinite(t))return '0:00';return Math.floor(t/60)+':'+String(Math.floor(t%60)).padStart(2,'0')}
+fileInput.addEventListener('change',e=>{const f=e.target.files?.[0];if(!f)return;if(!f.type.startsWith('audio/')){alert('Please choose an audio file.');return}if(currentUrl)URL.revokeObjectURL(currentUrl);currentUrl=URL.createObjectURL(f);audio.src=currentUrl;document.getElementById('trackName').textContent=f.name.replace(/\.[^.]+$/,'');document.getElementById('trackArtist').textContent='Local audio · ready to play';document.getElementById('fileLabel').textContent=f.name;document.getElementById('audioStatus').textContent='FILE LOADED';document.getElementById('art').textContent='♫';});
+document.getElementById('playBtn').addEventListener('click',async()=>{if(!audio.src){fileInput.click();return}setupAudio();if(ctx.state==='suspended')await ctx.resume();if(audio.paused){await audio.play();document.getElementById('playBtn').textContent='Ⅱ';document.getElementById('audioStatus').textContent='PLAYING'}else{audio.pause();document.getElementById('playBtn').textContent='▶';document.getElementById('audioStatus').textContent='PAUSED'}});
+audio.addEventListener('ended',()=>{document.getElementById('playBtn').textContent='▶';document.getElementById('audioStatus').textContent='FINISHED'});
+audio.addEventListener('loadedmetadata',()=>{document.getElementById('duration').textContent=fmt(audio.duration);document.getElementById('seek').value=0});
+audio.addEventListener('timeupdate',()=>{document.getElementById('currentTime').textContent=fmt(audio.currentTime);if(audio.duration)document.getElementById('seek').value=audio.currentTime/audio.duration*1000});
+document.getElementById('seek').addEventListener('input',e=>{if(audio.duration)audio.currentTime=e.target.value/1000*audio.duration});
+document.getElementById('backBtn').onclick=()=>audio.currentTime=0;
+document.getElementById('forwardBtn').onclick=()=>{if(Number.isFinite(audio.duration))audio.currentTime=Math.min(audio.duration,audio.currentTime+10)};
+document.getElementById('muteBtn').onclick=()=>{audio.muted=!audio.muted;document.getElementById('muteBtn').textContent=audio.muted?'◌':'◖'};
+document.getElementById('volume').addEventListener('input',e=>{let v=+e.target.value;document.getElementById('volumeVal').textContent=v+'%';if(ctx&&master)master.gain.setTargetAtTime(v/100,ctx.currentTime,.02);});
+bands.forEach((b,i)=>document.getElementById('band'+i).addEventListener('input',e=>{let v=+e.target.value;document.getElementById('val'+i).textContent=(v>0?'+':'')+v+' dB';if(filters[i]&&ctx)filters[i].gain.setTargetAtTime(v,ctx.currentTime,.02)}));
+document.getElementById('fxToggle').addEventListener('change',e=>{if(!ctx)return;filters.forEach(f=>f.gain.setTargetAtTime(e.target.checked?Number(f.dataset.gain||0):0,ctx.currentTime,.03));});
+function setVocal(mode){document.querySelectorAll('[data-vocal]').forEach(b=>b.classList.toggle('active',b.dataset.vocal===mode));window._vocalMode=mode;applyVocal()}
+function applyVocal(){if(!ctx||!window._vocalMix)return;let mode=window._vocalMode||'off',level=Number(document.getElementById('vocalLevel').value)/100;window._vocalMix.gain.setTargetAtTime(mode==='off'?0:(mode==='center'?level:level*.42),ctx.currentTime,.04)}
+document.querySelectorAll('[data-vocal]').forEach(b=>b.addEventListener('click',()=>{setupAudio();setVocal(b.dataset.vocal)}));
+document.getElementById('vocalLevel').addEventListener('input',e=>{document.getElementById('vocalVal').textContent=e.target.value+'%';applyVocal()});
+const profiles={
+ 'Balanced':[0,0,0,0,0,0,0,0],
+ 'Vocals Only':[-3,-2,1,4,5,3,0,-2],
+ 'Bass Boost':[7,6,4,1,0,0,1,1],
+ 'Clear Audio':[-2,-1,0,2,3,4,3,1]
+};
+function setPreset(name){document.querySelectorAll('.preset').forEach(b=>b.classList.toggle('active',b.dataset.preset===name));document.querySelectorAll('.presetnav').forEach(b=>b.classList.toggle('active',b.dataset.preset===name));(profiles[name]||profiles.Balanced).forEach((v,i)=>{document.getElementById('band'+i).value=v;document.getElementById('val'+i).textContent=(v>0?'+':'')+v+' dB';if(ctx&&filters[i])filters[i].gain.setTargetAtTime(document.getElementById('fxToggle').checked?v:0,ctx.currentTime,.04)});if(name==='Vocals Only'){setupAudio();setVocal('focus')}else setVocal('off')}
+document.querySelectorAll('[data-preset]').forEach(b=>b.addEventListener('click',()=>setPreset(b.dataset.preset)));
+document.getElementById('resetBtn').onclick=()=>setPreset('Balanced');
+document.querySelectorAll('[data-scroll]').forEach(b=>b.addEventListener('click',()=>document.getElementById(b.dataset.scroll)?.scrollIntoView({behavior:'smooth',block:'start'})));
+document.getElementById('shareBtn').onclick=async()=>{try{if(navigator.share)await navigator.share({title:'SHASHANK.MUSICPLAYER',text:'Try this browser audio player!',url:location.href});else{await navigator.clipboard.writeText(location.href);alert('Page link copied. Once deployed, share this public URL with friends.')}}catch(e){}};
+const wave=document.getElementById('heroWave');for(let i=0;i<42;i++){let el=document.createElement('i');el.style.setProperty('--h',(10+Math.abs(Math.sin(i*.7)*35))+'px');wave.appendChild(el)}
+</script>
+</body>
+</html>
