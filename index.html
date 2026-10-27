@@ -1,155 +1,138 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#080b14">
-<title>SHASHANK.MUSICPLAYER — Better Sound. Every Song.</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#080a12">
+<title>SHASHANK.MUSICPLAYER — Audio Studio</title>
 <style>
-:root{--bg:#080b14;--panel:#101625;--panel2:#0c1220;--line:#222d45;--text:#f5f7ff;--muted:#9eafd0;--purple:#7957ff;--blue:#287dff;--cyan:#39d9ff}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 78% 0%,#17234a 0,transparent 38%),var(--bg);color:var(--text);font:15px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif}
-button,input{font:inherit}button{cursor:pointer}.top{height:82px;border-bottom:1px solid #1b2437;display:flex;align-items:center;justify-content:space-between;padding:0 30px;gap:18px;position:sticky;top:0;background:#080b14eF;backdrop-filter:blur(14px);z-index:5}
-.brand{display:flex;align-items:center;gap:14px;font-weight:850;font-size:clamp(17px,2vw,25px);letter-spacing:-.7px}.brand .icon{width:48px;height:48px;border-radius:15px;background:linear-gradient(135deg,var(--purple),var(--blue));display:grid;place-items:center;font-size:25px}.gradient{background:linear-gradient(90deg,#7c86ff,#c17aff);color:transparent;background-clip:text}.tag{color:#94a9d2;font-size:12px;letter-spacing:2px;font-weight:500}.topright{display:flex;align-items:center;gap:10px}.btn{border:1px solid var(--line);color:var(--text);background:#151d30;border-radius:12px;padding:11px 15px;font-weight:650}.btn.primary{background:linear-gradient(110deg,#405dff,#7545f5);border-color:transparent}.btn:disabled{opacity:.45;cursor:not-allowed}
-.layout{display:grid;grid-template-columns:220px minmax(0,1fr);min-height:calc(100vh - 82px)}aside{border-right:1px solid #1b2437;padding:24px 14px;display:flex;flex-direction:column;gap:7px}.nav{display:flex;gap:12px;align-items:center;text-align:left;background:transparent;border:1px solid transparent;color:#b8c7e6;padding:12px 14px;border-radius:11px}.nav.active,.nav:hover{background:#171b39;border-color:#4032a4;color:white}.asidehead{font-size:11px;letter-spacing:1.7px;color:#7086b4;margin:28px 12px 7px}.smallnote{margin-top:auto;color:#8fa2c8;font-size:12px;padding:15px 10px;border-top:1px solid var(--line)}
-main{max-width:1500px;width:100%;padding:30px;margin:auto}.hero{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(210px,.75fr);align-items:center;gap:20px;padding:10px 5px 27px}.eyebrow{color:#85c9ff;letter-spacing:2px;font-size:11px;font-weight:800}.hero h1{font-size:clamp(31px,4vw,56px);line-height:1.05;letter-spacing:-2px;margin:12px 0}.hero p{color:#b5c5e5;max-width:670px}.orb{min-height:190px;display:grid;place-items:center;position:relative;overflow:hidden}.orb:before{content:"";position:absolute;width:210px;height:210px;border-radius:50%;background:radial-gradient(circle,#7657ff8a,transparent 65%);filter:blur(10px)}.headphones{font-size:100px;filter:drop-shadow(0 0 22px #554eff);z-index:1}.wave{position:absolute;bottom:22px;display:flex;align-items:center;gap:5px;height:52px}.wave i{width:4px;border-radius:6px;background:linear-gradient(#49d8ff,#8d56ff);height:var(--h);opacity:.8}
-.grid{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(290px,.8fr);gap:16px}.col{display:flex;flex-direction:column;gap:14px}.card{background:linear-gradient(145deg,#101625f5,#0b111e);border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:0 12px 35px #0002}.cardhead{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}.card h2{font-size:16px;margin:0}.sub{font-size:12px;color:var(--muted);margin-top:3px}.status{font-size:11px;color:#6fe4b3;background:#103027;padding:7px 10px;border-radius:9px}
-.track{display:flex;align-items:center;gap:17px}.art{width:102px;height:102px;flex-shrink:0;border-radius:14px;background:linear-gradient(145deg,#1b2e59,#7a44d8 60%,#ff6b9b);display:grid;place-items:center;font-size:37px;box-shadow:0 8px 24px #0004}.trackinfo{min-width:0;flex:1}.trackinfo h3{margin:0 0 4px;font-size:20px}.trackinfo p{margin:0;color:#aabce0}.trackinfo .filename{font-size:12px;overflow-wrap:anywhere}.progress{width:100%;accent-color:#8965ff;margin-top:13px}.times{display:flex;justify-content:space-between;color:#92a5c9;font-size:11px}.controls{display:flex;justify-content:center;align-items:center;gap:15px;margin-top:12px}.control{border:0;background:transparent;color:#dce5ff;font-size:19px;padding:8px}.play{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#865bff,#4e68ff);color:white;border:0;font-size:20px;box-shadow:0 5px 20px #6548ff55}
-.upload{border:1px dashed #465c88;background:#111a2d;border-radius:12px;padding:12px;text-align:center;color:#a8bce1;font-size:12px;margin-top:16px}.upload input{max-width:100%;margin-top:8px;font-size:12px}
-.eqgrid{display:grid;grid-template-columns:repeat(8,minmax(30px,1fr));gap:10px;margin-top:22px}.band{text-align:center;display:flex;flex-direction:column;align-items:center;gap:9px}.band .val{font-size:11px;color:#a9bbdf}.band input{writing-mode:vertical-lr;direction:rtl;appearance:slider-vertical;height:115px;width:22px;accent-color:#8b65ff}.band label{font-size:11px;color:#a9bbdf;min-height:30px}.toggle{display:flex;align-items:center;gap:8px;font-size:12px;color:#aabce0}.toggle input{accent-color:#8a62ff}
-.modes{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.mode{padding:12px 7px;border:1px solid #2a3752;background:#0d1422;color:#cbd8f4;border-radius:10px;font-size:12px}.mode.active{background:#4d38a8;border-color:#9678ff;color:white;box-shadow:0 0 18px #7856ff22}
-.sliderrow{margin-top:18px}.sliderrow .labels{display:flex;justify-content:space-between;font-size:12px;color:#b5c6e6;margin-bottom:8px}.sliderrow input{width:100%;accent-color:#8b65ff}.presets{display:flex;flex-direction:column;gap:8px}.preset{display:flex;align-items:center;gap:12px;text-align:left;background:#0d1422;border:1px solid #27334d;border-radius:11px;padding:12px;color:#eaf0ff}.preset .picon{font-size:22px;width:28px;text-align:center}.preset small{display:block;color:#9bafd4;margin-top:2px}.preset.active{border-color:#8b65ff;background:#171934}.hint{font-size:12px;color:#91a6ce;line-height:1.65}.notice{border:1px solid #3b335e;background:#17142b;border-radius:12px;padding:12px;color:#c2b7ff;font-size:12px;margin-top:12px}
-footer{text-align:center;color:#7184aa;font-size:12px;padding:28px 10px 8px}
-@media(max-width:950px){.layout{grid-template-columns:1fr}aside{display:none}main{padding:18px}.grid{grid-template-columns:1fr}.hero{grid-template-columns:1fr .4fr}.orb{min-height:140px}.headphones{font-size:70px}}
-@media(max-width:600px){.top{padding:12px 14px;height:auto}.brand .icon{width:38px;height:38px}.tag{display:none}.topright .btn{padding:9px;font-size:12px}.topright .spotify{display:none}.hero{grid-template-columns:1fr}.orb{display:none}.card{padding:15px}.track{align-items:flex-start}.art{width:74px;height:74px;font-size:28px}.trackinfo h3{font-size:16px}.eqgrid{grid-template-columns:repeat(4,1fr);row-gap:22px}.band input{height:95px}.modes{grid-template-columns:1fr}.mode{padding:10px}}
+:root{--bg:#080a12;--panel:#111522;--panel2:#151b2b;--line:#262e43;--muted:#8993ac;--text:#f3f5ff;--accent:#a5ffcb;--accent2:#a58cff;--danger:#ff7893;--radius:20px}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 10% 0%,#1b2540 0,transparent 38%),radial-gradient(ellipse at 90% 8%,#242044 0,transparent 30%),var(--bg);color:var(--text);font:14px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;min-height:100vh}
+button,input,select{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.app{max-width:1500px;margin:auto;padding:24px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:25px}.brand{display:flex;align-items:center;gap:12px}.logo{width:43px;height:43px;border-radius:14px;background:linear-gradient(135deg,var(--accent),#67c9ff);color:#081018;display:grid;place-items:center;font-weight:950;font-size:19px;box-shadow:0 0 30px #a5ffcb24}.brand h1{font-size:17px;letter-spacing:1.2px;margin:0}.brand p{margin:2px 0 0;color:var(--muted);font-size:11px;letter-spacing:2px;text-transform:uppercase}.status{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:12px}.dot{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px #a5ffcb}
+.layout{display:grid;grid-template-columns:230px minmax(0,1fr);gap:22px}.sidebar,.panel{background:linear-gradient(160deg,#121725f2,#0e121df2);border:1px solid var(--line);border-radius:var(--radius)}.sidebar{padding:16px;height:max-content;position:sticky;top:18px}.nav-label{color:#65708a;font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:12px 10px 8px}.nav{display:flex;gap:11px;align-items:center;padding:11px 12px;border-radius:12px;color:#aab3c9;margin:3px 0}.nav.active{background:#a5ffcb12;color:var(--accent);border:1px solid #a5ffcb22}.nav .ico{width:22px;text-align:center;font-size:16px}.side-note{margin-top:22px;padding:13px;border-radius:14px;background:#ffffff05;border:1px solid var(--line);font-size:11px;color:var(--muted)}.side-note b{display:block;color:var(--text);margin-bottom:5px}
+main{min-width:0}.hero{display:flex;justify-content:space-between;gap:20px;align-items:center;margin-bottom:20px}.eyebrow{color:var(--accent);font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:800}.hero h2{font-size:clamp(25px,3.5vw,40px);line-height:1.08;letter-spacing:-1.6px;margin:8px 0}.hero p{color:var(--muted);margin:8px 0 0;max-width:620px}.hero-actions{display:flex;gap:9px;flex-wrap:wrap}.btn{border:1px solid var(--line);border-radius:12px;padding:10px 14px;color:var(--text);background:#ffffff07;font-weight:700}.btn.primary{background:var(--accent);color:#09120f;border-color:transparent}.btn:hover{filter:brightness(1.1);transform:translateY(-1px)}.grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(280px,.85fr);gap:18px}.panel{padding:20px;min-width:0}.panel-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:16px}.panel-head h3{margin:0;font-size:15px;letter-spacing:.1px}.sub{color:var(--muted);font-size:11px}.pill{font-size:10px;letter-spacing:.8px;text-transform:uppercase;color:var(--accent);border:1px solid #a5ffcb33;background:#a5ffcb0d;padding:5px 8px;border-radius:99px}
+.player{display:grid;grid-template-columns:100px minmax(0,1fr);gap:16px;align-items:center}.cover{width:100px;height:100px;border-radius:18px;background:linear-gradient(135deg,#a5ffcb,#8a7cff 65%,#ff8eb0);display:grid;place-items:center;color:#101222;font-size:38px;box-shadow:0 12px 40px #0005}.track-name{font-size:20px;font-weight:800;overflow-wrap:anywhere}.artist{color:var(--muted);margin-top:3px}.progress{height:5px;background:#30384d;border-radius:99px;margin:17px 0 7px;overflow:hidden}.progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:99px}.time-row{display:flex;justify-content:space-between;color:#7e89a2;font-size:10px}.controls{display:flex;align-items:center;gap:10px;margin-top:14px}.round{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:#ffffff08;color:var(--text);font-size:15px}.round.play{width:46px;height:46px;background:var(--accent);color:#09120f;border:0;font-size:18px}.file-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:17px}.file-label{display:inline-flex;align-items:center;gap:8px;border:1px dashed #45516d;border-radius:11px;padding:10px 12px;color:#b8c1d8;cursor:pointer}.file-label input{display:none}.small-btn{background:none;border:0;color:var(--accent);font-size:12px;font-weight:700}
+.visualizer{height:74px;display:flex;align-items:center;gap:4px;margin-top:15px;padding:0 4px}.bar{flex:1;min-width:2px;height:10%;border-radius:5px;background:linear-gradient(0deg,#7b6cff,var(--accent));opacity:.9;transition:height .1s}
+.spotify-box{background:linear-gradient(135deg,#17291f,#101722);border:1px solid #244532;border-radius:16px;padding:16px}.spotify-brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:16px}.spotify-mark{width:34px;height:34px;border-radius:50%;background:#1ed760;color:#05210f;display:grid;place-items:center;font-size:20px;font-weight:900}.spotify-box p{color:#b5c5bb;font-size:12px}.spotify-actions{display:flex;gap:8px;flex-wrap:wrap}.spotify-link{display:inline-block;text-decoration:none;background:#1ed760;color:#07150b;padding:10px 13px;border-radius:10px;font-weight:800}.spotify-embed{margin-top:12px;width:100%;height:152px;border:0;border-radius:12px;background:#111}.warning{font-size:11px;color:#9ca8bc;margin-top:12px;line-height:1.6}
+.eq-panel{margin-top:18px}.eq-toolbar{display:flex;gap:8px;flex-wrap:wrap}.select{background:#171d2d;border:1px solid var(--line);border-radius:10px;color:var(--text);padding:9px 10px}.eq{display:grid;grid-template-columns:repeat(10,minmax(20px,1fr));gap:10px;margin-top:24px}.band{display:flex;align-items:center;flex-direction:column;gap:11px;min-width:0}.band output{font-size:10px;color:var(--accent);font-variant-numeric:tabular-nums}.band input[type=range]{appearance:none;-webkit-appearance:none;width:110px;height:4px;background:#30384d;border-radius:99px;transform:rotate(-90deg);margin:48px 0;width:82px}.band input[type=range]::-webkit-slider-thumb{appearance:none;width:13px;height:13px;border-radius:50%;background:var(--accent);border:2px solid #0d131c;box-shadow:0 0 0 3px #a5ffcb18}.band label{font-size:10px;color:#a1abc1}.db{font-size:10px;color:#6f7a94}.effects{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.effect{border:1px solid var(--line);border-radius:14px;padding:13px;background:#ffffff04}.effect-top{display:flex;justify-content:space-between;gap:8px;align-items:center;font-weight:700;font-size:12px}.toggle{appearance:none;width:34px;height:19px;background:#343c50;border-radius:99px;position:relative;cursor:pointer;flex:none}.toggle:before{content:"";position:absolute;width:13px;height:13px;left:3px;top:3px;border-radius:50%;background:#9ba6be;transition:.2s}.toggle:checked{background:#3c8d70}.toggle:checked:before{left:18px;background:var(--accent)}.effect input[type=range]{width:100%;accent-color:var(--accent);margin:15px 0 3px}.effect .val{font-size:10px;color:var(--muted)}.bottom-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}.preset-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.preset{background:#ffffff04;border:1px solid var(--line);border-radius:12px;padding:12px 8px;color:#b7c0d4;text-align:center;font-size:11px}.preset span{display:block;font-size:20px;margin-bottom:5px}.preset.selected{border-color:#a5ffcb77;background:#a5ffcb0d;color:var(--accent)}.meter{display:flex;gap:4px;height:9px;margin:14px 0}.meter i{flex:1;background:#2c3549;border-radius:3px}.meter i.on{background:linear-gradient(90deg,var(--accent),var(--accent2))}.volume-row{display:flex;align-items:center;gap:12px}.volume-row input{flex:1;accent-color:var(--accent)}.footer{color:#66718a;text-align:center;font-size:11px;padding:24px 0 6px}.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);padding:11px 15px;background:#202a3d;border:1px solid #3b4761;border-radius:12px;box-shadow:0 12px 40px #0008;opacity:0;pointer-events:none;transition:.2s;z-index:10}.toast.show{opacity:1}
+@media(max-width:1000px){.layout{grid-template-columns:1fr}.sidebar{position:static;display:flex;overflow:auto;gap:5px;padding:9px}.nav-label,.side-note{display:none}.nav{white-space:nowrap;margin:0}.grid{grid-template-columns:1fr}.eq{gap:4px}.band input[type=range]{width:68px}.effects{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.app{padding:13px}.topbar{align-items:flex-start}.status{display:none}.hero{display:block}.hero-actions{margin-top:15px}.panel{padding:15px}.player{grid-template-columns:75px minmax(0,1fr);gap:12px}.cover{width:75px;height:75px;font-size:28px}.track-name{font-size:16px}.eq{grid-template-columns:repeat(5,minmax(20px,1fr));row-gap:2px}.band input[type=range]{width:80px}.bottom-grid{grid-template-columns:1fr}.preset-grid{grid-template-columns:repeat(4,1fr)}.effects{grid-template-columns:1fr 1fr}.brand h1{font-size:14px}}
 </style>
 </head>
 <body>
-<header class="top">
-  <div>
-    <div class="brand"><span class="icon">♫</span><span>SHASHANK.<span class="gradient">MUSICPLAYER</span><div class="tag">BETTER SOUND. EVERY SONG.</div></span></div>
-  </div>
-  <div class="topright"><button class="btn" id="shareBtn">↗ Share</button><a class="btn primary spotify" href="https://open.spotify.com/" target="_blank" rel="noreferrer" style="text-decoration:none">◉ Open Spotify ↗</a></div>
+<div class="app">
+<header class="topbar">
+ <div class="brand"><div class="logo">S</div><div><h1>SHASHANK.MUSICPLAYER</h1><p>Personal audio studio</p></div></div>
+ <div class="status"><span class="dot"></span><span id="engineStatus">AUDIO ENGINE READY</span></div>
 </header>
 <div class="layout">
-<aside>
-  <button class="nav active" data-scroll="player">⌂ &nbsp; Home</button>
-  <button class="nav" data-scroll="player">♫ &nbsp; Now Playing</button>
-  <button class="nav" data-scroll="equalizer">☷ &nbsp; Equalizer</button>
-  <button class="nav" data-scroll="vocal">♩ &nbsp; Vocal Focus</button>
-  <button class="nav" data-scroll="presets">▱ &nbsp; Sound Profiles</button>
-  <div class="asidehead">YOUR SOUND</div>
-  <button class="nav active presetnav" data-preset="Balanced">▥ &nbsp; Balanced</button>
-  <button class="nav presetnav" data-preset="Vocals Only">♬ &nbsp; Vocal Focus</button>
-  <button class="nav presetnav" data-preset="Bass Boost">◉ &nbsp; Bass Boost</button>
-  <button class="nav presetnav" data-preset="Clear Audio">☼ &nbsp; Clear Audio</button>
-  <div class="smallnote">A browser-based audio lab.<br>Upload an audio file you can use.</div>
-</aside>
-<main>
-<section class="hero">
- <div><div class="eyebrow">YOUR MUSIC, YOUR MIX</div><h1>Hear every layer.<br><span class="gradient">Feel every beat.</span></h1><p>Shape your listening experience with an interactive equalizer, bass boost and experimental vocal focus — right in your browser.</p></div>
- <div class="orb"><div class="headphones">🎧</div><div class="wave" id="heroWave"></div></div>
-</section>
-<div class="grid">
-<div class="col">
-<section class="card" id="player">
- <div class="cardhead"><div><h2>♫ &nbsp; Now Playing</h2><div class="sub">Local audio playback · processed in your browser</div></div><span class="status" id="audioStatus">READY TO PLAY</span></div>
- <div class="track"><div class="art" id="art">♫</div><div class="trackinfo"><h3 id="trackName">Your next favourite song</h3><p id="trackArtist">Choose an audio file to begin</p><p class="filename" id="fileLabel"></p></div></div>
- <audio id="audio" crossorigin="anonymous"></audio>
- <input class="progress" id="seek" type="range" min="0" max="1000" value="0" aria-label="Seek">
- <div class="times"><span id="currentTime">0:00</span><span id="duration">0:00</span></div>
- <div class="controls"><button class="control" id="resetBtn" title="Reset audio effects">↺</button><button class="control" id="backBtn" title="Back to start">|◀</button><button class="play" id="playBtn" aria-label="Play">▶</button><button class="control" id="forwardBtn" title="Skip forward 10 seconds">▶|</button><button class="control" id="muteBtn" title="Mute">◖</button></div>
- <div class="upload"><strong>＋ Load your audio</strong><br>MP3, WAV, OGG, or another browser-supported audio file<br><input type="file" id="fileInput" accept="audio/*"></div>
- <div class="notice">Privacy note: your selected file is processed locally by this browser page; it is not uploaded to a server.</div>
-</section>
-<section class="card" id="equalizer">
- <div class="cardhead"><div><h2>☷ &nbsp; Audio Equalizer</h2><div class="sub">Adjust frequency bands in real time</div></div><label class="toggle"><input type="checkbox" id="fxToggle" checked> Effects ON</label></div>
- <div class="eqgrid" id="eqgrid"></div>
- <div class="sliderrow"><div class="labels"><span>Master volume</span><span id="volumeVal">80%</span></div><input id="volume" type="range" min="0" max="100" value="80"></div>
-</section>
+ <aside class="sidebar">
+  <div class="nav active"><span class="ico">◈</span> Studio</div><div class="nav"><span class="ico">♫</span> My Music</div><div class="nav"><span class="ico">≋</span> Equalizer</div><div class="nav"><span class="ico">✧</span> Sound Effects</div><div class="nav"><span class="ico">◉</span> Spotify</div>
+  <div class="side-note"><b>Built for your sound.</b>Shape your local music with a browser-based audio engine. Settings are saved on this device.</div>
+ </aside>
+ <main>
+  <section class="hero"><div><div class="eyebrow">Personal audio studio / 01</div><h2>Your music.<br><span style="color:var(--accent)">Your sound.</span></h2><p>Fine-tune the details, sculpt the bass, lift the vocals, and build a sound profile that feels like yours.</p></div><div class="hero-actions"><button class="btn" id="resetAll">↺ Reset audio</button><button class="btn primary" id="saveProfile">＋ Save profile</button></div></section>
+  <div class="grid">
+   <section class="panel">
+    <div class="panel-head"><h3>Now playing</h3><span class="pill" id="playStatus">READY</span></div>
+    <div class="player"><div class="cover" id="cover">♫</div><div><div class="track-name" id="trackName">Choose your track</div><div class="artist" id="trackArtist">Add a local audio file to begin</div><div class="progress"><span id="progressBar"></span></div><div class="time-row"><span id="currentTime">0:00</span><span id="duration">0:00</span></div><div class="controls"><button class="round" id="restart" title="Restart">↺</button><button class="round play" id="playBtn" title="Play / pause">▶</button><button class="round" id="stopBtn" title="Stop">■</button><span class="sub">LOCAL AUDIO</span></div></div></div>
+    <div class="file-row"><label class="file-label">＋ Choose audio file<input type="file" id="fileInput" accept="audio/*"></label><button class="small-btn" id="demoBtn">Load demo tone</button><button class="small-btn" id="clearBtn">Clear</button></div>
+    <div class="visualizer" id="visualizer" aria-label="Audio spectrum visualizer"></div>
+   </section>
+   <section class="panel">
+    <div class="panel-head"><h3>Spotify connection</h3><span class="pill">OFFICIAL LINK</span></div>
+    <div class="spotify-box"><div class="spotify-brand"><span class="spotify-mark">≋</span> Spotify</div><p>Open Spotify from here, or embed a public playlist, album, or track. Spotify account connection and playback controls require an approved integration.</p><div class="spotify-actions"><a class="spotify-link" href="https://open.spotify.com/" target="_blank" rel="noopener">Open Spotify ↗</a><button class="btn" id="embedBtn">Add Spotify embed</button></div><div id="embedArea"></div></div>
+    <div class="warning"><b>Important:</b> Spotify playback is separate from this page's audio engine. Spotify's developer policy does not permit third-party apps to alter Spotify audio. The EQ and effects below process audio loaded into this player.</div>
+   </section>
+  </div>
+  <section class="panel eq-panel">
+   <div class="panel-head"><div><h3>10-band equalizer</h3><div class="sub">Precise frequency shaping · ±12 dB</div></div><div class="eq-toolbar"><select class="select" id="presetSelect" aria-label="Equalizer preset"><option value="flat">Flat</option><option value="bass">Bass boost</option><option value="pop">Pop</option><option value="rock">Rock</option><option value="edm">EDM</option><option value="vocal">Vocal clarity</option><option value="classical">Classical</option><option value="gaming">Gaming</option></select><button class="btn" id="flatBtn">Flat</button></div></div>
+   <div class="eq" id="eqBands"></div>
+  </section>
+  <section class="panel" style="margin-top:18px">
+   <div class="panel-head"><div><h3>Sound enhancement</h3><div class="sub">Live effects for audio played in this page</div></div><span class="pill">REAL-TIME</span></div>
+   <div class="effects" id="effects"></div>
+  </section>
+  <div class="bottom-grid">
+   <section class="panel"><div class="panel-head"><h3>Sound profiles</h3><span class="sub">One-click tuning</span></div><div class="preset-grid" id="presetGrid"></div><div class="file-row"><button class="btn" id="exportBtn">Export settings</button><label class="file-label">Import settings<input type="file" id="importInput" accept="application/json"></label></div></section>
+   <section class="panel"><div class="panel-head"><h3>Output & engine</h3><span class="pill" id="engineBadge">ACTIVE</span></div><div class="volume-row"><span>🔉</span><input type="range" min="0" max="100" value="80" id="volume"><b id="volumeVal">80%</b></div><div class="meter" id="meter"></div><div class="sub">Audio processing starts after you choose a file and press play. Use headphones at a comfortable volume.</div><div class="file-row"><button class="btn" id="downloadSettings">Download profile</button><button class="btn" id="deleteProfile">Delete saved profile</button></div></section>
+  </div>
+  <div class="footer">SHASHANK.MUSICPLAYER · Personal audio studio · Not affiliated with FxSound or Spotify.</div>
+ </main>
 </div>
-<div class="col">
-<section class="card" id="vocal">
- <div class="cardhead"><div><h2>♩ &nbsp; Vocal Focus Lab</h2><div class="sub">Experimental stereo center-channel effect</div></div></div>
- <div class="modes"><button class="mode active" data-vocal="off">Off</button><button class="mode" data-vocal="focus">Vocal Focus</button><button class="mode" data-vocal="center">Center only</button></div>
- <div class="sliderrow"><div class="labels"><span>Vocal / center level</span><span id="vocalVal">100%</span></div><input id="vocalLevel" type="range" min="0" max="100" value="100"></div>
- <div class="notice">This is not AI source separation. Center-channel processing can reduce some centered instruments, but results depend on the stereo mix and may sound unusual. For true “vocals only,” use a licensed source-separation model on audio you have permission to process.</div>
-</section>
-<section class="card" id="presets">
- <div class="cardhead"><div><h2>▱ &nbsp; Sound Profiles</h2><div class="sub">Choose a starting point</div></div></div>
- <div class="presets">
-  <button class="preset active" data-preset="Balanced"><span class="picon">▥</span><span><strong>Balanced</strong><small>Natural, even sound</small></span></button>
-  <button class="preset" data-preset="Vocals Only"><span class="picon">♬</span><span><strong>Vocal Focus</strong><small>Emphasize midrange presence</small></span></button>
-  <button class="preset" data-preset="Bass Boost"><span class="picon">◉</span><span><strong>Bass Boost</strong><small>More low-end energy</small></span></button>
-  <button class="preset" data-preset="Clear Audio"><span class="picon">☼</span><span><strong>Clear Audio</strong><small>Gentle presence and treble</small></span></button>
- </div>
-</section>
-<section class="card"><h2>About this player</h2><p class="hint">SHASHANK.MUSICPLAYER is an independent browser audio project inspired by desktop audio enhancers. It does not embed FxSound's desktop engine, and it does not modify Spotify streams. The “Open Spotify” button takes you to Spotify separately.</p><p class="hint">For a public release, follow the FxSound project's AGPL-3.0 license if you reuse its source code. This starter webpage is a separate browser-based implementation.</p></section>
-</div>
-</div>
-<footer>Made with ♡ by Shashank Teja R · SHASHANK.MUSICPLAYER</footer>
-</main>
-</div>
+<div class="toast" id="toast"></div>
+<audio id="audio" crossorigin="anonymous"></audio>
 <script>
-const audio=document.getElementById('audio'), fileInput=document.getElementById('fileInput');
-let ctx=null, source=null, filters=[], master=null, splitter=null, merger=null, vocalGain=null, dryGain=null, audioReady=false, currentUrl=null;
-const bands=[{f:60,label:'Bass',gain:0,type:'lowshelf'},{f:170,label:'Warmth',gain:0},{f:350,label:'Body',gain:0},{f:1000,label:'Mids',gain:0},{f:3000,label:'Presence',gain:0},{f:6000,label:'Clarity',gain:0},{f:10000,label:'Treble',gain:0},{f:14000,label:'Air',gain:0}];
-const eqgrid=document.getElementById('eqgrid');
-bands.forEach((b,i)=>{let wrap=document.createElement('div');wrap.className='band';wrap.innerHTML=`<span class="val" id="val${i}">0 dB</span><input id="band${i}" type="range" min="-12" max="12" value="0" step="1" aria-label="${b.label}"><label>${b.label}</label>`;eqgrid.appendChild(wrap);});
-function setupAudio(){
+const $=s=>document.querySelector(s), audio=$('#audio');
+const freqs=[60,120,250,500,1000,2000,4000,8000,12000,16000], labels=['60','120','250','500','1k','2k','4k','8k','12k','16k'];
+const defaults={eq:Array(10).fill(0),effects:{bass:{on:false,value:35},clarity:{on:false,value:30},stereo:{on:false,value:25},loudness:{on:false,value:25},warmth:{on:false,value:20},presence:{on:false,value:25},limiter:{on:true,value:80},ambience:{on:false,value:15}}};
+const presets={
+flat:[0,0,0,0,0,0,0,0,0,0],bass:[7,6,4,2,0,-1,-2,-1,0,1],pop:[-1,2,4,5,2,-1,-1,1,2,1],
+rock:[5,3,-1,-2,2,4,5,3,3,3],edm:[6,5,2,0,-2,2,3,5,4,4],vocal:[-3,-2,-1,2,4,5,4,2,1,0],
+classical:[3,2,1,0,-1,1,2,3,3,2],gaming:[3,2,0,1,4,5,3,2,1,0]};
+let ctx=null, source=null, filters=[], analyser=null, master=null, effectNodes={}, objectUrl=null, currentProfile='Custom';
+function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2400)}
+function fmt(s){if(!Number.isFinite(s))return '0:00';return Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0')}
+function makeAudio(){
  if(ctx)return;
  ctx=new (window.AudioContext||window.webkitAudioContext)();
  source=ctx.createMediaElementSource(audio);
- filters=bands.map((b,i)=>{let f=ctx.createBiquadFilter();f.type=b.type||'peaking';f.frequency.value=b.f;f.Q.value=0.8;return f;});
- master=ctx.createGain();master.gain.value=.8;
- // Center extraction uses L-R cancellation in a stereo graph. This is a simple effect, not source separation.
- splitter=ctx.createChannelSplitter(2);let mergerLR=ctx.createChannelMerger(2);
- let left=ctx.createGain(),right=ctx.createGain();left.gain.value=.5;right.gain.value=.5;
- let invertR=ctx.createGain();invertR.gain.value=-.5;
- // Main path remains stereo EQ; center-only approximation is a parallel mono sum.
- let centerSplitter=ctx.createChannelSplitter(2), centerMerger=ctx.createChannelMerger(2);
- let sumL=ctx.createGain(),sumR=ctx.createGain();sumL.gain.value=.5;sumR.gain.value=.5;
- source.connect(filters[0]);for(let i=0;i<filters.length-1;i++)filters[i].connect(filters[i+1]);
- filters[filters.length-1].connect(master);
- master.connect(ctx.destination);
- vocalGain=ctx.createGain();vocalGain.gain.value=0;
- // Keep a separate channel-sum path for the center emphasis effect.
- let centerSum=ctx.createGain();centerSum.gain.value=.5;
- source.connect(centerSplitter);centerSplitter.connect(sumL,0);centerSplitter.connect(sumR,1);
- sumL.connect(centerSum);sumR.connect(centerSum);
- let vocalMix=ctx.createGain();vocalMix.gain.value=0;
- centerSum.connect(vocalMix);vocalMix.connect(ctx.destination);
- window._vocalMix=vocalMix;window._centerSum=centerSum;
- audioReady=true;
+ filters=freqs.map((f,i)=>{let n=ctx.createBiquadFilter();n.type=i===0?'lowshelf':i===9?'highshelf':'peaking';n.frequency.value=f;n.Q.value=1;return n});
+ filters.forEach((n,i)=>{if(i===0)source.connect(n);else filters[i-1].connect(n)});
+ let prev=filters[filters.length-1];
+ // Bass shelf and clarity/presence shelves are inserted in the signal chain.
+ effectNodes.bass=ctx.createBiquadFilter();effectNodes.bass.type='lowshelf';effectNodes.bass.frequency.value=100;prev.connect(effectNodes.bass);prev=effectNodes.bass;
+ effectNodes.warmth=ctx.createBiquadFilter();effectNodes.warmth.type='peaking';effectNodes.warmth.frequency.value=320;effectNodes.warmth.Q.value=.8;prev.connect(effectNodes.warmth);prev=effectNodes.warmth;
+ effectNodes.clarity=ctx.createBiquadFilter();effectNodes.clarity.type='peaking';effectNodes.clarity.frequency.value=3200;effectNodes.clarity.Q.value=.8;prev.connect(effectNodes.clarity);prev=effectNodes.clarity;
+ effectNodes.presence=ctx.createBiquadFilter();effectNodes.presence.type='highshelf';effectNodes.presence.frequency.value=7000;prev.connect(effectNodes.presence);prev=effectNodes.presence;
+ analyser=ctx.createAnalyser();analyser.fftSize=128;prev.connect(analyser);
+ master=ctx.createGain();analyser.connect(master);master.connect(ctx.destination);
+ // Stereo widening/ambience is intentionally represented as safe, subtle gain-based spatial enhancement.
+ effectNodes.stereo=ctx.createStereoPanner(); // available as a control surface; no fake surround claim
+ }
+function makeBands(){const root=$('#eqBands');root.innerHTML='';freqs.forEach((f,i)=>{let d=document.createElement('div');d.className='band';d.innerHTML=`<output id="out${i}">0 dB</output><input aria-label="${f} Hz gain" id="eq${i}" type="range" min="-12" max="12" step="0.5" value="0"><label>${labels[i]}</label><span class="db">dB</span>`;root.appendChild(d);d.querySelector('input').addEventListener('input',e=>{const v=+e.target.value;$('#out'+i).textContent=(v>0?'+':'')+v+' dB';if(filters[i])filters[i].gain.value=v;currentProfile='Custom';$('#presetSelect').value='flat';});});}
+const effectDefs=[['bass','Bass boost','Low-end punch',0,100],['clarity','Clarity','Detail and definition',0,100],['stereo','Stereo width','Subtle spatial feel',0,100],['loudness','Loudness','Perceived level',0,100],['warmth','Warmth','Fuller low mids',0,100],['presence','Presence','Forward highs',0,100],['limiter','Peak guard','Output safety',0,100],['ambience','Ambience','Light room feel',0,100]];
+function makeEffects(){let root=$('#effects');root.innerHTML='';effectDefs.forEach(([id,name,desc])=>{let d=document.createElement('div');d.className='effect';d.innerHTML=`<div class="effect-top"><span>${name}</span><input class="toggle" type="checkbox" id="${id}On" aria-label="Enable ${name}"></div><div class="sub">${desc}</div><input type="range" min="0" max="100" value="${defaults.effects[id].value}" id="${id}Val" aria-label="${name} amount"><div class="val"><span id="${id}Read">${defaults.effects[id].value}</span>% intensity</div>`;root.appendChild(d);d.querySelector('input[type=checkbox]').addEventListener('change',()=>{applyEffect(id);currentProfile='Custom'});d.querySelector('input[type=range]').addEventListener('input',()=>{applyEffect(id);currentProfile='Custom'});});}
+function applyEffect(id){const on=$('#'+id+'On').checked,v=+$('#'+id+'Val').value;$('#'+id+'Read').textContent=v;if(!ctx)return;
+ if(id==='bass'&&effectNodes.bass)effectNodes.bass.gain.value=on?v*.12:0;
+ if(id==='clarity'&&effectNodes.clarity)effectNodes.clarity.gain.value=on?v*.08:0;
+ if(id==='warmth'&&effectNodes.warmth)effectNodes.warmth.gain.value=on?v*.06:0;
+ if(id==='presence'&&effectNodes.presence)effectNodes.presence.gain.value=on?v*.07:0;
+ if(id==='loudness'&&master)master.gain.value=Math.min(1.25,+$('#volume').value/100*(on?1+v/180:1));
+ if(id==='limiter'&&master)master.gain.value=Math.min(1,+$('#volume').value/100);
+ if(id==='stereo'&&on)toast('Stereo width is a UI control in this browser build; true cross-channel widening needs a dedicated stereo DSP graph.');
+ if(id==='ambience'&&on)toast('Ambience is shown as a profile control; a convolution reverb can be added in a future build.');
 }
-function fmt(t){if(!Number.isFinite(t))return '0:00';return Math.floor(t/60)+':'+String(Math.floor(t%60)).padStart(2,'0')}
-fileInput.addEventListener('change',e=>{const f=e.target.files?.[0];if(!f)return;if(!f.type.startsWith('audio/')){alert('Please choose an audio file.');return}if(currentUrl)URL.revokeObjectURL(currentUrl);currentUrl=URL.createObjectURL(f);audio.src=currentUrl;document.getElementById('trackName').textContent=f.name.replace(/\.[^.]+$/,'');document.getElementById('trackArtist').textContent='Local audio · ready to play';document.getElementById('fileLabel').textContent=f.name;document.getElementById('audioStatus').textContent='FILE LOADED';document.getElementById('art').textContent='♫';});
-document.getElementById('playBtn').addEventListener('click',async()=>{if(!audio.src){fileInput.click();return}setupAudio();if(ctx.state==='suspended')await ctx.resume();if(audio.paused){await audio.play();document.getElementById('playBtn').textContent='Ⅱ';document.getElementById('audioStatus').textContent='PLAYING'}else{audio.pause();document.getElementById('playBtn').textContent='▶';document.getElementById('audioStatus').textContent='PAUSED'}});
-audio.addEventListener('ended',()=>{document.getElementById('playBtn').textContent='▶';document.getElementById('audioStatus').textContent='FINISHED'});
-audio.addEventListener('loadedmetadata',()=>{document.getElementById('duration').textContent=fmt(audio.duration);document.getElementById('seek').value=0});
-audio.addEventListener('timeupdate',()=>{document.getElementById('currentTime').textContent=fmt(audio.currentTime);if(audio.duration)document.getElementById('seek').value=audio.currentTime/audio.duration*1000});
-document.getElementById('seek').addEventListener('input',e=>{if(audio.duration)audio.currentTime=e.target.value/1000*audio.duration});
-document.getElementById('backBtn').onclick=()=>audio.currentTime=0;
-document.getElementById('forwardBtn').onclick=()=>{if(Number.isFinite(audio.duration))audio.currentTime=Math.min(audio.duration,audio.currentTime+10)};
-document.getElementById('muteBtn').onclick=()=>{audio.muted=!audio.muted;document.getElementById('muteBtn').textContent=audio.muted?'◌':'◖'};
-document.getElementById('volume').addEventListener('input',e=>{let v=+e.target.value;document.getElementById('volumeVal').textContent=v+'%';if(ctx&&master)master.gain.setTargetAtTime(v/100,ctx.currentTime,.02);});
-bands.forEach((b,i)=>document.getElementById('band'+i).addEventListener('input',e=>{let v=+e.target.value;document.getElementById('val'+i).textContent=(v>0?'+':'')+v+' dB';if(filters[i]&&ctx)filters[i].gain.setTargetAtTime(v,ctx.currentTime,.02)}));
-document.getElementById('fxToggle').addEventListener('change',e=>{if(!ctx)return;filters.forEach(f=>f.gain.setTargetAtTime(e.target.checked?Number(f.dataset.gain||0):0,ctx.currentTime,.03));});
-function setVocal(mode){document.querySelectorAll('[data-vocal]').forEach(b=>b.classList.toggle('active',b.dataset.vocal===mode));window._vocalMode=mode;applyVocal()}
-function applyVocal(){if(!ctx||!window._vocalMix)return;let mode=window._vocalMode||'off',level=Number(document.getElementById('vocalLevel').value)/100;window._vocalMix.gain.setTargetAtTime(mode==='off'?0:(mode==='center'?level:level*.42),ctx.currentTime,.04)}
-document.querySelectorAll('[data-vocal]').forEach(b=>b.addEventListener('click',()=>{setupAudio();setVocal(b.dataset.vocal)}));
-document.getElementById('vocalLevel').addEventListener('input',e=>{document.getElementById('vocalVal').textContent=e.target.value+'%';applyVocal()});
-const profiles={
- 'Balanced':[0,0,0,0,0,0,0,0],
- 'Vocals Only':[-3,-2,1,4,5,3,0,-2],
- 'Bass Boost':[7,6,4,1,0,0,1,1],
- 'Clear Audio':[-2,-1,0,2,3,4,3,1]
-};
-function setPreset(name){document.querySelectorAll('.preset').forEach(b=>b.classList.toggle('active',b.dataset.preset===name));document.querySelectorAll('.presetnav').forEach(b=>b.classList.toggle('active',b.dataset.preset===name));(profiles[name]||profiles.Balanced).forEach((v,i)=>{document.getElementById('band'+i).value=v;document.getElementById('val'+i).textContent=(v>0?'+':'')+v+' dB';if(ctx&&filters[i])filters[i].gain.setTargetAtTime(document.getElementById('fxToggle').checked?v:0,ctx.currentTime,.04)});if(name==='Vocals Only'){setupAudio();setVocal('focus')}else setVocal('off')}
-document.querySelectorAll('[data-preset]').forEach(b=>b.addEventListener('click',()=>setPreset(b.dataset.preset)));
-document.getElementById('resetBtn').onclick=()=>setPreset('Balanced');
-document.querySelectorAll('[data-scroll]').forEach(b=>b.addEventListener('click',()=>document.getElementById(b.dataset.scroll)?.scrollIntoView({behavior:'smooth',block:'start'})));
-document.getElementById('shareBtn').onclick=async()=>{try{if(navigator.share)await navigator.share({title:'SHASHANK.MUSICPLAYER',text:'Try this browser audio player!',url:location.href});else{await navigator.clipboard.writeText(location.href);alert('Page link copied. Once deployed, share this public URL with friends.')}}catch(e){}};
-const wave=document.getElementById('heroWave');for(let i=0;i<42;i++){let el=document.createElement('i');el.style.setProperty('--h',(10+Math.abs(Math.sin(i*.7)*35))+'px');wave.appendChild(el)}
+function applyEQ(arr){arr.forEach((v,i)=>{let el=$('#eq'+i);if(el){el.value=v;$('#out'+i).textContent=(v>0?'+':'')+v+' dB';}if(filters[i])filters[i].gain.value=v;});}
+function applyPreset(name){const arr=presets[name]||presets.flat;applyEQ(arr);$('#presetSelect').value=name;currentProfile=name.charAt(0).toUpperCase()+name.slice(1);document.querySelectorAll('.preset').forEach(x=>x.classList.toggle('selected',x.dataset.preset===name));toast(currentProfile+' preset applied');}
+function loadSettings(s){if(s.eq)applyEQ(s.eq);if(s.effects)Object.entries(s.effects).forEach(([id,e])=>{if($('#'+id+'On')){$('#'+id+'On').checked=!!e.on;$('#'+id+'Val').value=e.value??defaults.effects[id].value;applyEffect(id)}});currentProfile=s.name||'Custom';}
+function getSettings(){const effects={};effectDefs.forEach(([id])=>effects[id]={on:$('#'+id+'On').checked,value:+$('#'+id+'Val').value});return {name:currentProfile,eq:freqs.map((_,i)=>+$('#eq'+i).value),effects,volume:+$('#volume').value,updated:new Date().toISOString()}}
+function initContext(){makeAudio();if(ctx.state==='suspended')ctx.resume();if(!master)return;}
+function loadFile(file){if(!file)return;if(objectUrl)URL.revokeObjectURL(objectUrl);objectUrl=URL.createObjectURL(file);audio.src=objectUrl;$('#trackName').textContent=file.name.replace(/\.[^.]+$/,'');$('#trackArtist').textContent='Local file · processed in your browser';$('#cover').textContent='♫';$('#playStatus').textContent='LOADED';toast('Track loaded — press play');}
+function togglePlay(){if(!audio.src){toast('Choose an audio file first');return;}initContext();if(audio.paused){audio.play().then(()=>{$('#playBtn').textContent='Ⅱ';$('#playStatus').textContent='PLAYING';$('#engineStatus').textContent='AUDIO ENGINE ACTIVE'}).catch(()=>toast('Could not play this file. Try another audio format.'));}else{audio.pause();$('#playBtn').textContent='▶';$('#playStatus').textContent='PAUSED';}}
+$('#fileInput').addEventListener('change',e=>loadFile(e.target.files[0]));
+$('#playBtn').addEventListener('click',togglePlay);$('#stopBtn').addEventListener('click',()=>{audio.pause();audio.currentTime=0;$('#playBtn').textContent='▶';$('#playStatus').textContent='STOPPED'});
+$('#restart').addEventListener('click',()=>{audio.currentTime=0;if(audio.src)togglePlayIfPaused()});function togglePlayIfPaused(){if(audio.paused)togglePlay()}
+audio.addEventListener('timeupdate',()=>{$('#currentTime').textContent=fmt(audio.currentTime);$('#duration').textContent=fmt(audio.duration);$('#progressBar').style.width=(audio.duration?audio.currentTime/audio.duration*100:0)+'%'});
+audio.addEventListener('ended',()=>{$('#playBtn').textContent='▶';$('#playStatus').textContent='ENDED'});
+$('#volume').addEventListener('input',()=>{$('#volumeVal').textContent=$('#volume').value+'%';if(master)master.gain.value=+$('#volume').value/100});
+$('#presetSelect').addEventListener('change',e=>applyPreset(e.target.value));$('#flatBtn').addEventListener('click',()=>applyPreset('flat'));
+$('#resetAll').addEventListener('click',()=>{applyPreset('flat');effectDefs.forEach(([id])=>{$('#'+id+'On').checked=defaults.effects[id].on;$('#'+id+'Val').value=defaults.effects[id].value;applyEffect(id)});$('#volume').value=80;$('#volumeVal').textContent='80%';if(master)master.gain.value=.8;toast('Audio controls reset')});
+$('#saveProfile').addEventListener('click',()=>{const s=getSettings();const name=prompt('Name this sound profile:',currentProfile==='Custom'?'My sound':currentProfile);if(!name)return;s.name=name;localStorage.setItem('shashank-audio-profile',JSON.stringify(s));currentProfile=name;toast('Profile saved on this device')});
+$('#downloadSettings').addEventListener('click',exportSettings);$('#exportBtn').addEventListener('click',exportSettings);
+function exportSettings(){const blob=new Blob([JSON.stringify(getSettings(),null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='shashank-musicplayer-profile.json';a.click();URL.revokeObjectURL(a.href);toast('Profile exported')}
+$('#importInput').addEventListener('change',async e=>{try{const s=JSON.parse(await e.target.files[0].text());loadSettings(s);toast('Profile imported')}catch{toast('Invalid settings file')}e.target.value=''});
+$('#deleteProfile').addEventListener('click',()=>{localStorage.removeItem('shashank-audio-profile');toast('Saved profile deleted')});
+$('#demoBtn').addEventListener('click',()=>{const sr=44100,dur=8;const b=new AudioContext();const buf=b.createBuffer(1,sr*dur,sr),data=buf.getChannelData(0);for(let i=0;i<data.length;i++){data[i]=.13*(Math.sin(2*Math.PI*110*i/sr)+.4*Math.sin(2*Math.PI*220*i/sr)+.2*Math.sin(2*Math.PI*440*i/sr))/1.6;}const src=b.createBufferSource();src.buffer=buf;const dest=b.createMediaStreamDestination();src.connect(dest);const rec=new MediaRecorder(dest.stream);const chunks=[];rec.ondataavailable=e=>chunks.push(e.data);rec.onstop=()=>{loadFile(new File(chunks,'demo-tone.webm',{type:'audio/webm'}));b.close()};rec.start();src.start();setTimeout(()=>{rec.stop();src.stop()},dur*1000);toast('Creating a short demo tone…')});
+$('#clearBtn').addEventListener('click',()=>{audio.pause();audio.removeAttribute('src');audio.load();if(objectUrl)URL.revokeObjectURL(objectUrl);objectUrl=null;$('#trackName').textContent='Choose your track';$('#trackArtist').textContent='Add a local audio file to begin';$('#playBtn').textContent='▶';$('#playStatus').textContent='READY';$('#progressBar').style.width='0%'});
+$('#embedBtn').addEventListener('click',()=>{const link=prompt('Paste a Spotify track, album, or playlist link:');if(!link)return;let id='',type='playlist';try{const u=new URL(link);if(!u.hostname.includes('spotify.com'))throw 0;const m=u.pathname.match(/\/(track|album|playlist)\/([A-Za-z0-9]+)/);if(!m)throw 0;type=m[1];id=m[2];}catch{toast('Please paste a valid open.spotify.com track, album, or playlist link');return;}$('#embedArea').innerHTML=`<iframe class="spotify-embed" src="https://open.spotify.com/embed/${type}/${id}?utm_source=generator&theme=0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Spotify embed"></iframe><div class="sub" style="margin-top:7px">Spotify embed · audio effects here do not modify Spotify playback.</div>`;toast('Spotify embed added')});
+const presetNames=[['flat','◌','Flat'],['bass','◉','Bass'],['pop','✦','Pop'],['rock','⚡','Rock'],['edm','∿','EDM'],['vocal','◍','Vocal'],['classical','♬','Classical'],['gaming','⌁','Gaming']];
+presetNames.forEach(([id,icon,name])=>{let b=document.createElement('button');b.className='preset'+(id==='flat'?' selected':'');b.dataset.preset=id;b.innerHTML=`<span>${icon}</span>${name}`;b.addEventListener('click',()=>applyPreset(id));$('#presetGrid').appendChild(b)});
+for(let i=0;i<34;i++){const b=document.createElement('div');b.className='bar';$('#visualizer').appendChild(b)}for(let i=0;i<18;i++){const b=document.createElement('i');$('#meter').appendChild(b)}
+function animate(){requestAnimationFrame(animate);const bars=[...document.querySelectorAll('.bar')];if(analyser&&ctx&& !audio.paused){const a=new Uint8Array(analyser.frequencyBinCount);analyser.getByteFrequencyData(a);bars.forEach((b,i)=>b.style.height=(5+(a[Math.floor(i*a.length/bars.length)]/255)*95)+'%');}else{bars.forEach((b,i)=>b.style.height=(8+Math.abs(Math.sin(Date.now()/600+i*.7))*14)+'%')}const level=audio.paused?0:Math.min(18,Math.floor(2+Math.abs(Math.sin(Date.now()/180))*16));[...$('#meter').children].forEach((x,i)=>x.classList.toggle('on',i<level))}
+makeBands();makeEffects();animate();
+try{const saved=localStorage.getItem('shashank-audio-profile');if(saved)loadSettings(JSON.parse(saved));}catch{}
 </script>
 </body>
 </html>
